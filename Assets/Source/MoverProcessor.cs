@@ -3,16 +3,18 @@ using UnityEngine;
 
 public class MoverProcessor : MonoBehaviour
 {
-    private UnitComponent unitComponent;
+    private UnitComponent mUnitComponent;
 
-    private void Start ()
+    internal void Initialize()
     {
-        unitComponent = GetComponent<UnitComponent>();
+        mUnitComponent = GetComponent<UnitComponent>();
     }
 
-    private void Update ()
+    internal void Tick()
     {
-        unitComponent.MovementDelta = ((unitComponent.Direction * unitComponent.Speed) * Time.deltaTime);
-        transform.position += unitComponent.MovementDelta;
+        mUnitComponent.Velocity += (mUnitComponent.Acceleration * Time.deltaTime);
+        mUnitComponent.Velocity = Vector3.ClampMagnitude(mUnitComponent.Velocity, mUnitComponent.MaxVelocity);
+
+        transform.position += mUnitComponent.Velocity * Time.deltaTime;
 	}
 }

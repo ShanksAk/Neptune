@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class UnitComponent : MonoBehaviour
 {
-    public int Speed = 1;
+    public const string kUnitTag = "Unit";
+
+    public SphereCollider AwarenessSphere;
+
+    internal float MaxVelocity = 2f;
+    public float Speed = 1f;
     public Vector3 Direction = Vector3.zero;
-    public Vector3 MovementDelta = Vector3.zero;
-    public List<UnitComponent> Neighbors = new List<UnitComponent>(20);
+
+    internal Vector3 Acceleration = Vector3.zero;
+    internal Vector3 Velocity = Vector3.zero;
+
+    internal HashSet<UnitComponent> Neighbors = new HashSet<UnitComponent>();
 }
