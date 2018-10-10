@@ -28,11 +28,4 @@ public class NeighborsProcessor : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.collider.tag == UnitComponent.kUnitTag)
-        {
-            Debug.LogError(string.Format("Collision Occured!! Failed Avoidance with {0}!", collision.collider.name));
-        }
-    }
 }

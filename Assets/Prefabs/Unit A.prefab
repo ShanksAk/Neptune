@@ -29,6 +29,7 @@ GameObject:
   - component: {fileID: 114535880775853274}
   - component: {fileID: 54497539130452342}
   - component: {fileID: 114170635636010696}
+  - component: {fileID: 114939732010428946}
   m_Layer: 0
   m_Name: Unit A
   m_TagString: Unit
@@ -104,7 +105,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &114170635636010696
 MonoBehaviour:
@@ -128,11 +129,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a69d78fbfb3f76d489c1ba84dc2a90e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 1
-  Direction: {x: 0, y: 0, z: 1}
-  MovementDelta: {x: 0, y: 0, z: 0}
-  Neighbors: []
   AwarenessSphere: {fileID: 135870652907879614}
+  MaxVelocity: 3
+  MaxAcceleration: 20
+  Speed: 1
 --- !u!114 &114491033207661236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -156,6 +156,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114540540665539030
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1812330564583424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d3665ecf21f0904bb5dcb9f33c614da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114939732010428946
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}

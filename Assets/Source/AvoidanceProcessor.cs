@@ -1,5 +1,4 @@
 ﻿/// Copyright (c) 2018 All Rights Reserved. Maher Manoubi.
-using System;
 using UnityEngine;
 
 public class AvoidanceProcessor : MonoBehaviour
@@ -18,8 +17,6 @@ public class AvoidanceProcessor : MonoBehaviour
 
     internal void Tick()
     {
-        mUnitComponent.Acceleration = (mUnitComponent.Direction * mUnitComponent.Speed);
-
         foreach (UnitComponent neighbor in mUnitComponent.Neighbors)
         {
             float distanceSq = (neighbor.transform.position - mUnitComponent.transform.position).sqrMagnitude;

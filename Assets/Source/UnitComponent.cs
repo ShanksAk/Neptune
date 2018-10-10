@@ -8,12 +8,30 @@ public class UnitComponent : MonoBehaviour
 
     public SphereCollider AwarenessSphere;
 
-    internal float MaxVelocity = 2f;
+    public float MaxVelocity = 2f;
+    public float MaxAcceleration = 20f;
     public float Speed = 1f;
-    public Vector3 Direction = Vector3.zero;
+
+    internal bool UseDestination = false;
+    internal Vector3 Destination = Vector3.zero;
+    internal Vector3 Direction = Vector3.zero;
 
     internal Vector3 Acceleration = Vector3.zero;
     internal Vector3 Velocity = Vector3.zero;
 
     internal HashSet<UnitComponent> Neighbors = new HashSet<UnitComponent>();
+
+    public void Initialize()
+    {
+        GroupComponent groupComponent = transform.parent.GetComponent<GroupComponent>();
+        UseDestination = groupComponent.UseDestination;
+        if (UseDestination)
+        {
+            Destination = groupComponent.DestinationWaypoint.position;
+        }
+        else
+        {
+            Direction = groupComponent.Direction;
+        }
+    }
 }
