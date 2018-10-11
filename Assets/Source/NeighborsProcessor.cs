@@ -17,6 +17,12 @@ public class NeighborsProcessor : MonoBehaviour
         {
             mUnitComponent.Neighbors.Add(awarenessUnit);
         }
+
+        ObstacleComponent obstacle = other.gameObject.GetComponent<ObstacleComponent>();
+        if (obstacle != null && !mUnitComponent.Obstacles.Contains(obstacle))
+        {
+            mUnitComponent.Obstacles.Add(obstacle);
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -25,6 +31,12 @@ public class NeighborsProcessor : MonoBehaviour
         if (awarenessUnit != null && mUnitComponent.Neighbors.Contains(awarenessUnit))
         {
             mUnitComponent.Neighbors.Remove(awarenessUnit);
+        }
+
+        ObstacleComponent obstacle = other.gameObject.GetComponent<ObstacleComponent>();
+        if (obstacle != null && mUnitComponent.Obstacles.Contains(obstacle))
+        {
+            mUnitComponent.Obstacles.Remove(obstacle);
         }
     }
 

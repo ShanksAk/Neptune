@@ -18,6 +18,7 @@ public class UnitComponent : MonoBehaviour
     internal float Radius = 0f;
 
     internal HashSet<UnitComponent> Neighbors = new HashSet<UnitComponent>();
+    internal HashSet<ObstacleComponent> Obstacles = new HashSet<ObstacleComponent>();
 
     public void Initialize()
     {

@@ -45,6 +45,35 @@ public class AvoidanceProcessor : MonoBehaviour
                 }
             }
         }
+
+        foreach (ObstacleComponent obstacle in mUnitComponent.Obstacles)
+        {
+            float distanceSq = (obstacle.Position - mUnitComponent.Position).sqrMagnitude;
+            float radiusSq = Mathf.Pow((obstacle.Radius + mUnitComponent.Radius), 2);
+            if (distanceSq != radiusSq)
+            {
+                if (distanceSq < radiusSq)
+                {
+                    radiusSq = Mathf.Pow((obstacle.Radius + mUnitComponent.Radius - Mathf.Sqrt(distanceSq)), 2);
+                }
+
+                Vector2 w = obstacle.Position - mUnitComponent.Position;
+                Vector2 v = mUnitComponent.Velocity;
+                float a = Vector2.Dot(v, v);
+                float b = Vector2.Dot(w, v);
+                float c = Vector2.Dot(w, w) - radiusSq;
+                float discr = ((b * b) - (a * c));
+                if (discr > .0f && (a < -kEpsilon || a > kEpsilon))
+                {
+                    discr = Mathf.Sqrt(discr);
+                    float t = ((b - discr) / a);
+                    if (t > 0)
+                    {
+                        mUnitComponent.Acceleration += -kScaling * Mathf.Exp(-t / kExponentialCutoff) * (v - (b * v - a * w) / discr) / (a * Mathf.Pow(t, kPowerLawExponent)) * (kPowerLawExponent / t + 1 / kExponentialCutoff);
+                    }
+                }
+            }
+        }
     }
 
 }
