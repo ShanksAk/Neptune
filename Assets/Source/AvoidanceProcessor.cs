@@ -6,7 +6,7 @@ public class AvoidanceProcessor : MonoBehaviour
     private const float kEpsilon = 0.00001f;
     private const float kScaling = 1.5f;
     private const float kExponentialCutoff = 3f;
-    private const float kPowerLawExponent = 10f;
+    private const float kPowerLawExponent = 2f;
 
     private UnitComponent mUnitComponent;
 
@@ -33,11 +33,11 @@ public class AvoidanceProcessor : MonoBehaviour
                 float a = Vector2.Dot(v, v);
                 float b = Vector2.Dot(w, v);
                 float c = Vector2.Dot(w, w) - radiusSq;
-                float discr = b * b - a * c;
+                float discr = ((b * b) - (a * c));
                 if (discr > .0f && (a < -kEpsilon || a > kEpsilon))
                 {
                     discr = Mathf.Sqrt(discr);
-                    float t = (b - discr) / a;
+                    float t = ((b - discr) / a);
                     if (t > 0)
                     {
                         mUnitComponent.Acceleration += -kScaling * Mathf.Exp(-t / kExponentialCutoff) * (v - (b * v - a * w) / discr) / (a * Mathf.Pow(t, kPowerLawExponent)) * (kPowerLawExponent / t + 1 / kExponentialCutoff);

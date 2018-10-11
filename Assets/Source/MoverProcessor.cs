@@ -4,7 +4,7 @@ using UnityEngine;
 public class MoverProcessor : MonoBehaviour
 {
     private const float kEpsilon = 0.00001f;
-    private const float kGoalRadiusSq = 0.2f;
+    private const float kGoalRadiusSq = 1f;
     private const float kRelaxationTime = 0.54f;
 
     private UnitComponent mUnitComponent;
@@ -22,7 +22,8 @@ public class MoverProcessor : MonoBehaviour
             mPreferredVelocity = mUnitComponent.Destination - mUnitComponent.Position;
             if (mPreferredVelocity.sqrMagnitude < kGoalRadiusSq)
             {
-                mUnitComponent.Acceleration = Vector2.zero; // Arrived!
+                mUnitComponent.Acceleration = Vector2.zero;
+                mUnitComponent.Velocity = Vector2.zero;
                 return;
             }
 
