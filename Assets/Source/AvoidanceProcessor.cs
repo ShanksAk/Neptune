@@ -6,7 +6,7 @@ public class AvoidanceProcessor : MonoBehaviour
     private const float kEpsilon = 0.00001f;
     private const float kScaling = 1.5f;
     private const float kExponentialCutoff = 3f;
-    private const float kPowerLawExponent = 2f;
+    private const float kPowerLawExponent = 10f;
 
     private UnitComponent mUnitComponent;
 
@@ -19,15 +19,20 @@ public class AvoidanceProcessor : MonoBehaviour
     {
         foreach (UnitComponent neighbor in mUnitComponent.Neighbors)
         {
-            float distanceSq = (neighbor.transform.position - mUnitComponent.transform.position).sqrMagnitude;
-            float radiusSq = Mathf.Sqrt(neighbor.AwarenessSphere.radius + mUnitComponent.AwarenessSphere.radius);
+            float distanceSq = (neighbor.Position - mUnitComponent.Position).sqrMagnitude;
+            float radiusSq = Mathf.Pow((neighbor.Radius + mUnitComponent.Radius), 2);
             if (distanceSq != radiusSq)
             {
-                Vector3 w = neighbor.transform.position - mUnitComponent.transform.position;
-                Vector3 v = mUnitComponent.Velocity - neighbor.Velocity;
-                float a = Vector3.Dot(v, v);
-                float b = Vector3.Dot(w, v);
-                float c = Vector3.Dot(w, w) - radiusSq;
+                if (distanceSq < radiusSq)
+                {
+                    radiusSq = Mathf.Pow((neighbor.Radius + mUnitComponent.Radius - Mathf.Sqrt(distanceSq)), 2);
+                }
+
+                Vector2 w = neighbor.Position - mUnitComponent.Position;
+                Vector2 v = mUnitComponent.Velocity - neighbor.Velocity;
+                float a = Vector2.Dot(v, v);
+                float b = Vector2.Dot(w, v);
+                float c = Vector2.Dot(w, w) - radiusSq;
                 float discr = b * b - a * c;
                 if (discr > .0f && (a < -kEpsilon || a > kEpsilon))
                 {

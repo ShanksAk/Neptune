@@ -4,11 +4,11 @@ using UnityEngine;
 public class MoverProcessor : MonoBehaviour
 {
     private const float kEpsilon = 0.00001f;
-    private const float kGoalRadiusSq = 0.25f;
+    private const float kGoalRadiusSq = 0.2f;
     private const float kRelaxationTime = 0.54f;
 
     private UnitComponent mUnitComponent;
-    private Vector3 mPreferredVelocity;
+    private Vector2 mPreferredVelocity;
 
     internal void Initialize()
     {
@@ -19,10 +19,11 @@ public class MoverProcessor : MonoBehaviour
     {
         if (mUnitComponent.UseDestination)
         {
-            mPreferredVelocity = mUnitComponent.Destination - mUnitComponent.transform.position;
+            mPreferredVelocity = mUnitComponent.Destination - mUnitComponent.Position;
             if (mPreferredVelocity.sqrMagnitude < kGoalRadiusSq)
             {
-                mPreferredVelocity = Vector3.zero; // Arrived!
+                mUnitComponent.Acceleration = Vector2.zero; // Arrived!
+                return;
             }
 
             mPreferredVelocity *= (mUnitComponent.Speed / mPreferredVelocity.magnitude);
@@ -36,14 +37,15 @@ public class MoverProcessor : MonoBehaviour
 
     internal void Tick()
     {
-        mUnitComponent.Acceleration = Vector3.ClampMagnitude(mUnitComponent.Acceleration, mUnitComponent.MaxAcceleration);
+        mUnitComponent.Acceleration = Vector2.ClampMagnitude(mUnitComponent.Acceleration, mUnitComponent.MaxAcceleration);
 
         mUnitComponent.Velocity += (mUnitComponent.Acceleration * Time.deltaTime);
-        mUnitComponent.Velocity = Vector3.ClampMagnitude(mUnitComponent.Velocity, mUnitComponent.MaxVelocity);
+        mUnitComponent.Velocity = Vector2.ClampMagnitude(mUnitComponent.Velocity, mUnitComponent.MaxVelocity);
 
         if (mUnitComponent.Velocity.sqrMagnitude > kEpsilon)
         {
-            transform.position += mUnitComponent.Velocity * Time.deltaTime;
+            mUnitComponent.Position += mUnitComponent.Velocity * Time.deltaTime;
+            transform.position = VectorHelpers.Vector2ToVector3(mUnitComponent.Position, transform.position.y);
         }
 	}
 }

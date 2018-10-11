@@ -5,5 +5,5 @@ public class GroupComponent : MonoBehaviour
 {
     public bool UseDestination = false;
     public Transform DestinationWaypoint;
-    public Vector3 Direction = Vector3.zero;
+    public Vector2 Direction = Vector2.zero;
 }

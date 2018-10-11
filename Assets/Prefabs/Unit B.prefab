@@ -139,11 +139,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a69d78fbfb3f76d489c1ba84dc2a90e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AwarenessSphere: {fileID: 135399844886780242}
+  ColllisionSphere: {fileID: 135211362478509172}
+  MaxVelocity: 3
+  MaxAcceleration: 20
   Speed: 1
-  Direction: {x: 0, y: 0, z: -1}
-  MovementDelta: {x: 0, y: 0, z: 0}
-  Neighbors: []
-  AwarenessSphere: {fileID: 135211362478509172}
+  Radius: 0
 --- !u!114 &114658931449763622
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -4,20 +4,18 @@ using UnityEngine;
 
 public class UnitComponent : MonoBehaviour
 {
-    public const string kUnitTag = "Unit";
-
-    public SphereCollider AwarenessSphere;
-
     public float MaxVelocity = 2f;
-    public float MaxAcceleration = 20f;
+    public float MaxAcceleration = 100f;
     public float Speed = 1f;
 
     internal bool UseDestination = false;
-    internal Vector3 Destination = Vector3.zero;
-    internal Vector3 Direction = Vector3.zero;
+    internal Vector2 Destination = Vector2.zero;
+    internal Vector2 Direction = Vector2.zero;
 
-    internal Vector3 Acceleration = Vector3.zero;
-    internal Vector3 Velocity = Vector3.zero;
+    internal Vector2 Acceleration = Vector2.zero;
+    internal Vector2 Velocity = Vector2.zero;
+    internal Vector2 Position = Vector2.zero;
+    internal float Radius = 0f;
 
     internal HashSet<UnitComponent> Neighbors = new HashSet<UnitComponent>();
 
@@ -27,11 +25,15 @@ public class UnitComponent : MonoBehaviour
         UseDestination = groupComponent.UseDestination;
         if (UseDestination)
         {
-            Destination = groupComponent.DestinationWaypoint.position;
+            Destination = VectorHelpers.Vector3ToVector2(groupComponent.DestinationWaypoint.position);
         }
         else
         {
             Direction = groupComponent.Direction;
         }
+        Position = VectorHelpers.Vector3ToVector2(transform.position);
+        Vector3 localScale = transform.localScale;
+        float scale = ((localScale.x + localScale.y + localScale.z) / 3);
+        Radius = (scale / 2);
     }
 }

@@ -130,9 +130,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AwarenessSphere: {fileID: 135870652907879614}
+  ColllisionSphere: {fileID: 135058768904614210}
   MaxVelocity: 3
   MaxAcceleration: 20
   Speed: 1
+  Radius: 0
 --- !u!114 &114491033207661236
 MonoBehaviour:
   m_ObjectHideFlags: 1
