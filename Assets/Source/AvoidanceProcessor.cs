@@ -19,16 +19,16 @@ public class AvoidanceProcessor : MonoBehaviour
     {
         foreach (UnitComponent neighbor in mUnitComponent.Neighbors)
         {
-            CalculateAvoidanceAcceleration(mUnitComponent, neighbor.Position, neighbor.Radius);
+            CalculateAvoidanceAcceleration(mUnitComponent, neighbor.Position, neighbor.Radius, neighbor.Velocity);
         }
 
         foreach (ObstacleComponent obstacle in mUnitComponent.Obstacles)
         {
-            CalculateAvoidanceAcceleration(mUnitComponent, obstacle.Position, obstacle.Radius);
+            CalculateAvoidanceAcceleration(mUnitComponent, obstacle.Position, obstacle.Radius, Vector2.zero);
         }
     }
 
-    private void CalculateAvoidanceAcceleration(UnitComponent mUnitComponent, Vector2 obstaclePosition, float obstacleRadius)
+    private void CalculateAvoidanceAcceleration(UnitComponent mUnitComponent, Vector2 obstaclePosition, float obstacleRadius, Vector2 obstacleVelocity)
     {
         float distanceSq = (obstaclePosition - mUnitComponent.Position).sqrMagnitude;
         float radiusSq = Mathf.Pow((obstacleRadius + mUnitComponent.Radius), 2);
@@ -40,7 +40,7 @@ public class AvoidanceProcessor : MonoBehaviour
             }
 
             Vector2 w = obstaclePosition - mUnitComponent.Position;
-            Vector2 v = mUnitComponent.Velocity;
+            Vector2 v = mUnitComponent.Velocity - obstacleVelocity;
             float a = Vector2.Dot(v, v);
             float b = Vector2.Dot(w, v);
             float c = Vector2.Dot(w, w) - radiusSq;
