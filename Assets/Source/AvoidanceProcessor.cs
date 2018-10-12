@@ -19,16 +19,16 @@ public class AvoidanceProcessor : MonoBehaviour
     {
         foreach (UnitComponent neighbor in mUnitComponent.Neighbors)
         {
-            PowerLawMath(mUnitComponent, neighbor.Position, neighbor.Radius);
+            CalculateAvoidanceAcceleration(mUnitComponent, neighbor.Position, neighbor.Radius);
         }
 
         foreach (ObstacleComponent obstacle in mUnitComponent.Obstacles)
         {
-            PowerLawMath(mUnitComponent, obstacle.Position, obstacle.Radius);
+            CalculateAvoidanceAcceleration(mUnitComponent, obstacle.Position, obstacle.Radius);
         }
     }
 
-    private void PowerLawMath(UnitComponent mUnitComponent, Vector2 obstaclePosition, float obstacleRadius)
+    private void CalculateAvoidanceAcceleration(UnitComponent mUnitComponent, Vector2 obstaclePosition, float obstacleRadius)
     {
         float distanceSq = (obstaclePosition - mUnitComponent.Position).sqrMagnitude;
         float radiusSq = Mathf.Pow((obstacleRadius + mUnitComponent.Radius), 2);
