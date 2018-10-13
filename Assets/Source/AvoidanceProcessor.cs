@@ -8,6 +8,8 @@ public class AvoidanceProcessor : MonoBehaviour
     private const float kExponentialCutoff = 3f;
     private const float kPowerLawExponent = 2f;
 
+    private float maxDuration;
+
     private UnitComponent mUnitComponent;
 
     internal void Initialize()

@@ -7,7 +7,7 @@ public class UnitProcessor : MonoBehaviour
     private MoverProcessor mMoverProcessor;
     private AvoidanceProcessor mAvoidanceProcessor;
 
-    private void Start()
+    public void Initialize()
     {
         mUnitComponent = GetComponent<UnitComponent>();
         mUnitComponent.Initialize();
@@ -19,7 +19,7 @@ public class UnitProcessor : MonoBehaviour
         mAvoidanceProcessor.Initialize();
     }
 
-    private void Update ()
+    public void Tick ()
     {
         mMoverProcessor.Calculate();
         mAvoidanceProcessor.Tick();
