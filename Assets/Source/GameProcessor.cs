@@ -31,7 +31,7 @@ public class GameProcessor : MonoBehaviour
         float duration = endTime - startTime;
         if (duration > 0.01f)
         {
-            Debug.Log(string.Format("Avoidance Calculation: {0}", endTime - startTime));
+            Debug.Log(string.Format("Avoidance Calculation: {0}", duration);
         }
     }
 }
